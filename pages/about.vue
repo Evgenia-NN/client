@@ -10,7 +10,7 @@
         <div class="flex flex-col gap-3 p-6 max-w-2xl text-wrap bg-rose-50/50 border border-rose-500 rounded-2xl shadow-xl">
             <h4 class="text-rose-500 text-center text-xl font-bold">Наша История</h4>
             <p>
-                Наш блог был основан в [год основания] году, когда мы решили объединить наши страсти к дизайну и архитектуре. С тех пор мы исследуем различные стили, материалы и техники, чтобы предоставить вам актуальную информацию и вдохновение для вашего собственного пространства. Мы верим, что каждый дом — это отражение его владельца, и мы здесь, чтобы помочь вам выразить свою индивидуальность через дизайн.
+                Наш блог был основан в 2023 году, когда мы решили объединить наши страсти к дизайну и архитектуре. С тех пор мы исследуем различные стили, материалы и техники, чтобы предоставить вам актуальную информацию и вдохновение для вашего собственного пространства. Мы верим, что каждый дом — это отражение его владельца, и мы здесь, чтобы помочь вам выразить свою индивидуальность через дизайн.
             </p>   
         </div>
         <div class="flex flex-col gap-3 p-6 max-w-2xl text-wrap bg-rose-50/50 border border-rose-500 rounded-2xl shadow-xl">
@@ -45,3 +45,25 @@
         </div>
     </div>
 </template>
+
+<script setup>
+// получаем мета данные
+const index = useIndexStore();
+const seo = ref({})
+
+const { data } = await useAsyncData('seo', ()  =>
+  $fetch(`http://localhost:1338/api/about?populate=*`),
+  { server: true }
+  );
+
+  if (data.value?.data?.seo) {
+      seo.value = data.value.data.seo;
+  }
+
+  useHead({
+        title: () => seo.value?.metaTitle ? `${seo.value?.metaTitle} | EvgeniaDesign` : 'EvgeniaDesign',
+        meta: [
+        { name: 'description', content: () => seo.value?.metaDescription || '' }
+        ],
+  });
+</script>

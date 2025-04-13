@@ -2,8 +2,7 @@
     <div class="max-w-3xl mx-auto text-white">
         <div v-if="article.image"
         :style="'background-image: url(http://localhost:1338' + article.image.url + ')'"
-        class="h-80 bg-auto bg-top bg-fixed bg-no-repeat rounded-4xl"
-        >
+        class="h-80 bg-auto bg-top bg-fixed bg-no-repeat rounded-4xl">
         </div>
         <h1 class="text-4xl font-medium my-2">{{ article.title }}</h1>
         <p v-if="article" class="opacity-50 my-1.5">
@@ -33,11 +32,9 @@ function convertDatetime(isoDatetime) {
 }
 
 const { id } = useRoute().params;
-// const post = ref({})
-
 
 const article = ref({})
-// const index = useIndexStore();
+const index = useIndexStore();
 
 import markdownit from 'markdown-it'
 const md = markdownit()
@@ -46,27 +43,19 @@ watch(article, (newArticle) => {
     body.value = md.render(newArticle.body);
     
 })
-// const seo = ref({})
 
 const fetch = async () => {
     try {
-        // index.loader = true;
+        index.loader = true;
         const res = await $fetch(`http://localhost:1338/api/articles?filters[slug][$eqi]=${id}&populate=*`);
         article.value = res.data[0];
         if (article.value) {
             updateViews(article.value.documentId);
-            // seo.value = res.data[0].seo;
-            // useSeoMeta({
-            //   title: `${seo.value.metaTitle} | Секреты Шефа`,
-            //   description: seo.value.metaDescription,
-            //   ogTitle: seo.value.metaTitle,
-            //   ogDescription: seo.value.metaDescription,
-            // });
         }
     } catch (error) {
         console.log(error);
     } finally {
-        // index.loader = false;
+        index.loader = false;
     }
 };
 
@@ -95,6 +84,25 @@ function calculateReadingTime(text, wordsPerMinute = 200) {
         return `${readingTime} минут`;
     }
 }
+
+// получаем мета данные
+const seo = ref({})
+
+const { data } = await useAsyncData('seo', ()  =>
+  $fetch(`http://localhost:1338/api/contact?populate=*`),
+  { server: true }
+  );
+
+  if (data.value?.data?.seo) {
+      seo.value = data.value.data.seo;
+  }
+
+  useHead({
+        title: () => seo.value?.metaTitle ? `${seo.value?.metaTitle} | EvgeniaDesign` : 'EvgeniaDesign',
+        meta: [
+        { name: 'description', content: () => seo.value?.metaDescription || '' }
+        ],
+  });
 
 onMounted(() => fetch())
 </script>
