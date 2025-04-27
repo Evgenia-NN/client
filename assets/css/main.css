@@ -3,6 +3,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
-    /* background-color: rgb(229, 255, 205); */
-    background: linear-gradient(190deg, oklch(0.371 0 0) 40%, oklch(0.645 0.246 16.439))
+    background: linear-gradient(190deg, oklch(1 0 0) 40%, oklch(0.645 0.246 16.439));
+}
+
+/* Темная тема */
+.dark body {
+    background: linear-gradient(190deg, oklch(0.371 0 0) 40%, oklch(0.645 0.246 16.439)); /* Пример градиента для темной темы */
 }

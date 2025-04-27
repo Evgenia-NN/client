@@ -27,6 +27,9 @@ const articles = ref([]);
 // Функция для получения списка всех статей
 async function fetchArticles() {
     try {
+        // включаем loader
+        // index.loader = true;
+
         const response = await fetch('http://localhost:1338/api/articles?populate=*');
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -36,7 +39,11 @@ async function fetchArticles() {
         articles.value = res.data; // Сохраняем полученные статьи
     } catch (error) {
         console.error('Ошибка при получении статей:', error);
-    }
+    } 
+    // finally {
+    //     // выключаем loader
+    //     index.loader = false;
+    // }
 }
 
 async function loadArticles() {

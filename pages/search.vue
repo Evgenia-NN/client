@@ -33,15 +33,17 @@ const articles = ref([]);
 // Функция для получения списка всех статей
 async function fetchArticles() {
     try {
+        // включаем loader
+        index.loader = true;
+
         const response = await fetch(`http://localhost:1338/api/articles?filters[$or][0][title][$containsi]=${search}&filters[$or][1][body][$containsi]=${search}populate=*`);
-        // if (!response.ok) {
-        //     throw new Error('Network response was not ok');
-        // }
-        // const res = await response.json();
         
         articles.value = res.data; // Сохраняем полученные статьи
     } catch (error) {
         console.error('Ошибка при получении статей:', error);
+    } finally {
+        // выключаем loader
+        index.loader = false;
     }
 }
 
