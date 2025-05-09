@@ -1,7 +1,7 @@
 <template>
     <!-- компонент верхнего колонтитула -->
     <header>
-        <nav class="border-gray-200 shadow-sm dark:bg-neutral-700">
+        <nav class="bg-white shadow-sm dark:bg-neutral-700">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
 
                 <!-- логотип -->

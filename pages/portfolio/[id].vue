@@ -1,3 +1,4 @@
+<!-- страница с отдельной работой -->
 <template>
     <div class="bg-white dark:bg-neutral-700">
     <!-- Контейнер для содержимого статьи с максимальной шириной и центрированием -->
@@ -19,11 +20,11 @@
             <!-- изображение -->
             <div v-if="article.image"
                 :style="'background-image: url(https://55ab4659a877.vps.myjino.ru/x' + article.image.url + ')'"
-                class="h-120 bg-contain bg-top bg-fixed bg-no-repeat rounded-4xl">
+                class="h-120 bg-cover bg-center bg-fixed bg-no-repeat rounded-4xl">
             </div>
 
             <!-- заголовок статьи -->
-            <h1 class="text-4xl font-medium my-2">{{ article.title }}</h1>
+            <h1 class="text-4xl font-medium my-2">{{ article.name }}</h1>
 
             <!-- количество прочитано -->
             <p v-if="article" class="opacity-50 my-1.5">
@@ -47,6 +48,7 @@
                     </span>
                 </button>
             </div>
+
             <!-- контент статьи -->
             <div v-if="body" class="markdown prose prose-cyan dark:prose-invert max-w-none my-6" v-html="body" ref="markdownContainer"></div>
         </div>
@@ -87,7 +89,7 @@ watch(article, (newArticle) => {
 const fetch = async () => {
     try {
         index.loader = true;
-        const res = await $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/articles?filters[slug][$eqi]=${id}&populate=*`);
+        const res = await $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/works?filters[slug][$eqi]=${id}&populate=*`);
         article.value = res.data[0];
         if (article.value) {
             updateViews(article.value.documentId);
@@ -100,7 +102,7 @@ const fetch = async () => {
 };
 
 const updateViews = async (documentId) => {
-    await $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/articles/${documentId}?populate=*`, {
+    await $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/works/${documentId}?populate=*`, {
         method: 'PUT',
         body: {
             data: {
@@ -130,7 +132,7 @@ function calculateReadingTime(text, wordsPerMinute = 200) {
 const seo = ref({})
 
 const { data } = await useAsyncData('seo', ()  =>
-  $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/contact?populate=*`),
+  $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/portfolio?populate=*`),
   { server: true }
   );
 

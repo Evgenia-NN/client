@@ -23,7 +23,7 @@
                     :class="[
                         isCategoryOpen(nav) ? 'block' : 'hidden'
                     ]">
-                    <ul class="p-1 text-sm text-gray-700 dark:text-gray-200 max-h-[60vh] overflow-y-auto">
+                    <ul class="p-1 text-sm text-black dark:text-white max-h-[60vh] overflow-y-auto">
                         <li v-for="category in nav.categories" :key="category.id" class="relative w-full">
                             <div class="flex items-center justify-between w-full">
                                 <NuxtLink :to="'/'+category.slug" 
@@ -67,35 +67,35 @@
                 <div class="flex items-center gap-1">
                     <NuxtLink :to="nav.to"
                         active-class="active-link" class="hover:underline hover:text-rose-500 block py-2 px-3 md:p-0 rounded-sm md:bg-transparent dark:text-white"
-                        :class="{ 'text-cyan-700 dark:text-cyan-500': route.path == nav.path }"
+                        :class="{ 'text-rose-500 dark:text-rose-400': route.path == nav.path }"
                         @click="handleLinkClick">
                         <span class="text-base">{{ nav.name }}</span>
                     </NuxtLink>
                     <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
                         class="flex items-center justify-center w-4 h-4 transition-all duration-300 group-hover:rotate-180">
-                        <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 group-hover:text-cyan-700 dark:group-hover:text-cyan-500" 
+                        <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 group-hover:text-rose-500 dark:group-hover:text-rose-400" 
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                         </svg>
                     </div>
                 </div>
-    
+               
                 <!-- Десктопное выпадающее меню -->
                 <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
-                    class="absolute top-full left-0 w-48 font-normal bg-white dark:bg-gray-800/50 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                    class="absolute top-full left-0 w-48 font-normal bg-white dark:bg-neutral-700/60 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                     :class="{'right-0 left-auto': isNearRightEdge}">
     
-                    <ul class="p-1 text-sm text-gray-700 dark:text-white">
+                    <ul class="p-1 text-sm text-black dark:text-white">
                         <li v-for="category in nav.categories" :key="category.id" class="relative group/sub">
-                            <div class="flex items-center justify-between w-full hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all duration-300">
+                            <div class="flex items-center justify-between w-full hover:bg-gray-100 dark:hover:bg-neutral-600 rounded transition-all duration-300">
                                 <NuxtLink :to="'/'+category.slug" 
                                     class="flex-1 px-4 py-3 transition-all duration-300"
                                     @click="handleLinkClick">
-                                    <span class="text-base">{{ category.title }}</span>
+                                    <span class="text-base">{{ category.name }}</span>
                                 </NuxtLink>
                                 <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0" 
                                     class="flex items-center justify-center w-8 h-8 transition-all duration-300">
-                                    <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 group-hover/sub:text-cyan-700 dark:group-hover/sub:text-cyan-500" 
+                                    <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 group-hover/sub:text-rose-500 dark:group-hover/sub:text-rose-400" 
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                                     </svg>
@@ -124,9 +124,9 @@
             </li>
         </ul>
     </div>
-    </template>
+</template>
     
-    <script setup>
+<script setup>
     const route = useRoute()
     const menuOpen = defineModel()
     const navbar = ref()
@@ -196,7 +196,7 @@
             menu?.contains(event.target) || 
             Array.from(dropdowns).some(dropdown => dropdown.contains(event.target)) ||
             Array.from(submenus).some(submenu => submenu.contains(event.target)) ||
-            Array.from(categoryButtons).some(button => button.contains(event.target)) ||
+            Array.from(categoryButtons).some(button => button.contains(event.target))
             Array.from(subcategoryButtons).some(button => button.contains(event.target))
         
         if (!isClickInside) {
@@ -207,7 +207,7 @@
     const fetchNavbar = async () => {
         try {
             index.loader = true
-            const res = await $fetch('http://localhost:1338/api/navbars?[categories][populate]=subcategories&sort=sort:asc')
+            const res = await $fetch('https://55ab4659a877.vps.myjino.ru/x/api/navbars?populate=*&sort=sort:asc')
             navbar.value = res.data
         } catch (error) {
             console.log(error)
@@ -228,7 +228,7 @@
     onUnmounted(() => {
         document.removeEventListener('click', handleClickOutside)
     })
-    </script>
+</script>
 
 <style>
 .active-link {

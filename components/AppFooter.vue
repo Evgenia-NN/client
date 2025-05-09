@@ -1,5 +1,5 @@
 <template>
-    <footer class="rounded-lg dark:bg-neutral-700 m-4">
+    <footer class="bg-white dark:bg-neutral-700">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-6">
             <!-- логотип -->
             <NuxtLink to="/" class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -63,11 +63,11 @@
     const isNearRightEdge = ref(false)
     const isNearBottomEdge = ref(false)
     const openCategories = ref(new Set())
-    const openSubcategories = ref(new Set())
+    // const openSubcategories = ref(new Set())
     const activeCategory = ref(null)
     
     const isCategoryOpen = (nav) => openCategories.value.has(nav.id)
-    const isSubcategoryOpen = (category) => openSubcategories.value.has(category.id)
+    // const isSubcategoryOpen = (category) => openSubcategories.value.has(category.id)
     
     const handleLinkClick = () => {
         closeAllMenus()
@@ -85,18 +85,18 @@
         }
     }
     
-    const toggleSubcategory = (category) => {
-        if (openSubcategories.value.has(category.id)) {
-            openSubcategories.value.delete(category.id)
-        } else {
-            openSubcategories.value.clear()
-            openSubcategories.value.add(category.id)
-        }
-    }
+    // const toggleSubcategory = (category) => {
+    //     if (openSubcategories.value.has(category.id)) {
+    //         openSubcategories.value.delete(category.id)
+    //     } else {
+    //         openSubcategories.value.clear()
+    //         openSubcategories.value.add(category.id)
+    //     }
+    // }
     
     const closeAllMenus = () => {
         openCategories.value.clear()
-        openSubcategories.value.clear()
+        // openSubcategories.value.clear()
         activeCategory.value = null
     }
     
@@ -118,14 +118,14 @@
         const dropdowns = document.querySelectorAll('.dropdown-menu')
         const submenus = document.querySelectorAll('.submenu')
         const categoryButtons = document.querySelectorAll('.category-button')
-        const subcategoryButtons = document.querySelectorAll('.subcategory-button')
+        // const subcategoryButtons = document.querySelectorAll('.subcategory-button')
         
         const isClickInside = 
             menu?.contains(event.target) || 
             Array.from(dropdowns).some(dropdown => dropdown.contains(event.target)) ||
             Array.from(submenus).some(submenu => submenu.contains(event.target)) ||
-            Array.from(categoryButtons).some(button => button.contains(event.target)) ||
-            Array.from(subcategoryButtons).some(button => button.contains(event.target))
+            Array.from(categoryButtons).some(button => button.contains(event.target))
+            // Array.from(subcategoryButtons).some(button => button.contains(event.target))
         
         if (!isClickInside) {
             closeAllMenus()
@@ -135,7 +135,7 @@
     const fetchNavbar = async () => {
         try {
             index.loader = true
-            const res = await $fetch('http://localhost:1338/api/footers?[categories][populate]=subcategories&sort=sort:asc')
+            const res = await $fetch('https://55ab4659a877.vps.myjino.ru/x/api/footers?populate=*&sort=sort:asc')
             navbar.value = res.data
         } catch (error) {
             console.log(error)
