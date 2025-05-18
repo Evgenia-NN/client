@@ -66,7 +66,7 @@
             <li v-for="nav in navbar" :key="nav.sort" class="relative group">
                 <div class="flex items-center gap-1">
                     <NuxtLink :to="nav.to"
-                        active-class="active-link" class="hover:underline hover:text-rose-500 block py-2 px-3 md:p-0 rounded-sm md:bg-transparent dark:text-white"
+                        active-class="active-link" class="hover:text-rose-500 block py-2 px-3 md:p-0 rounded-sm md:bg-transparent transition-colors duration-300 dark:text-white"
                         :class="{ 'text-rose-500 dark:text-rose-400': route.path == nav.path }"
                         @click="handleLinkClick">
                         <span class="text-base">{{ nav.name }}</span>
@@ -82,7 +82,7 @@
                
                 <!-- Десктопное выпадающее меню -->
                 <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
-                    class="absolute top-full left-0 w-48 font-normal bg-white dark:bg-neutral-700/60 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                    class="absolute z-50 top-full left-0 w-48 font-normal bg-white dark:bg-neutral-700/60 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                     :class="{'right-0 left-auto': isNearRightEdge}">
     
                     <ul class="p-1 text-sm text-black dark:text-white">
@@ -93,30 +93,6 @@
                                     @click="handleLinkClick">
                                     <span class="text-base">{{ category.name }}</span>
                                 </NuxtLink>
-                                <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0" 
-                                    class="flex items-center justify-center w-8 h-8 transition-all duration-300">
-                                    <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 group-hover/sub:text-rose-500 dark:group-hover/sub:text-rose-400" 
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <!-- Десктопное вложенное меню -->
-                            <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0"
-                                class="absolute top-0 left-[calc(100%-0.5rem)] w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl transform transition-all duration-300 origin-left scale-0 group-hover/sub:scale-100 opacity-0 group-hover/sub:opacity-100 -translate-x-2 group-hover/sub:translate-x-0 z-50"
-                                :class="{
-                                    'right-[calc(100%-0.5rem)] left-auto origin-right': isNearRightEdge,
-                                    'bottom-0 top-auto': isNearBottomEdge
-                                }">
-                                <ul class="p-1 text-sm w-full text-gray-700 dark:text-gray-200">
-                                    <li v-for="subcategory in category.subcategories" :key="subcategory.id">
-                                        <NuxtLink :to="'/'+subcategory.slug" 
-                                            class="block px-4 py-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white transition-all duration-300"
-                                            @click="handleLinkClick">
-                                            <span class="text-base">{{ subcategory.name }}</span>
-                                        </NuxtLink>
-                                    </li>
-                                </ul>
                             </div>
                         </li>
                     </ul>

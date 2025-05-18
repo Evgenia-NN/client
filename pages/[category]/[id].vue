@@ -4,14 +4,14 @@
         <div class="max-w-7xl mx-auto px-4 text-black dark:text-white">
             <!-- Индикатор загрузки -->
             <div v-if="isLoading" class="flex justify-center items-center py-10">
-                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500"></div>
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-rose-500"></div>
             </div>
         
             <!-- Сообщение об ошибке -->
             <div v-else-if="error" class="py-10 text-center">
                 <h2 class="text-2xl font-bold text-red-500 mb-2">Ошибка загрузки статьи</h2>
                 <p>{{ error }}</p>
-                <button @click="fetch" class="mt-4 px-5 py-2 bg-cyan-500 rounded hover:bg-cyan-600 transition">
+                <button @click="fetch" class="mt-4 px-5 py-2 bg-rose-500 rounded hover:bg-cyan-600 transition">
                     Повторить попытку
                 </button>
             </div> 
@@ -19,8 +19,17 @@
             <!-- изображение -->
             <div v-if="article.image"
                 :style="'background-image: url(https://55ab4659a877.vps.myjino.ru/x' + article.image.url + ')'"
-                class="h-120 bg-contain bg-top bg-fixed bg-no-repeat rounded-4xl">
+                class="h-120 bg-cover bg-top bg-fixed bg-no-repeat rounded-4xl">
             </div>
+
+            <!-- Хлебные крошки -->
+            <UiBreadcrumbs 
+                :items="[
+                    { text: categoryName, to: `/${category}` },
+                    { text: article?.title || 'Загрузка...' }
+                ]"
+                class="mb-4 my-6"
+            />
 
             <!-- заголовок статьи -->
             <h1 class="text-4xl font-medium my-2">{{ article.title }}</h1>
@@ -72,7 +81,7 @@ function convertDatetime(isoDatetime) {
 }
 
 const { id } = useRoute().params;
-
+const categoryName = ref('');
 const article = ref({})
 const index = useIndexStore();
 
@@ -126,6 +135,103 @@ function calculateReadingTime(text, wordsPerMinute = 200) {
     }
 }
 
+
+/**
+ * Копирует URL текущей статьи в буфер обмена
+ * Показывает уведомление об успешном копировании
+ */
+const copyCurrentUrl = async () => {
+    try {
+        await navigator.clipboard.writeText(window.location.href);
+        copied.value = true;
+        setTimeout(() => {
+            copied.value = false;
+        }, 2000);
+    } catch (error) {
+        console.error('Ошибка при копировании URL:', error);
+    }
+}
+
+const copyToClipboard = async (text, event) => {
+    if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+        console.error('Clipboard API не поддерживается в текущей среде');
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(text);
+        showCopiedNotification(event);
+    } catch (error) {
+        console.error('Не удалось скопировать текст:', error);
+    }
+}
+
+const showCopiedNotification = (event) => {
+    const notification = document.createElement('span');
+    notification.textContent = 'Скопировано';
+    notification.className =
+        'absolute bg-cyan-500 text-white text-xs px-2 py-1 rounded-md shadow-md pointer-events-none';
+
+    const rect = event.target.getBoundingClientRect();
+    notification.style.top = `${rect.top + window.scrollY}px`;
+    notification.style.left = `${rect.right + window.scrollX + 8}px`;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 1000);
+}
+
+const handleDocumentClick = (event) => {
+    if (event.target.tagName === 'CODE' || event.target.tagName === 'PRE') {
+        const codeText = event.target.textContent;
+        copyToClipboard(codeText, event);
+    }
+}
+
+/**
+ * Загружает данные статьи, категории и подкатегории
+ * Обрабатывает ошибки и устанавливает состояния загрузки
+ */
+const fetchArticle = async () => {
+    try {
+        index.loader = true;
+        error.value = null;
+
+        // Загружаем данные категории
+        const categoryRes = await $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/categories?filters[slug][$eq]=${category}&populate=*`).catch(() => ({ data: [] }));
+        
+        // Устанавливаем названия категории и подкатегории
+        if (categoryRes.data?.[0]) {
+            categoryName.value = categoryRes.data[0].attributes?.name || categoryRes.data[0].name;
+        } else {
+            categoryName.value = category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ');
+        }
+
+        // Загружаем данные статьи
+        const articleRes = await $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/posts?filters[slug][$eq]=${articleSlug}&filters[subcategories][slug][$eq]=${subcategory}&filters[subcategories][category][slug][$eq]=${category}&populate=*`);
+
+        if (articleRes.data?.[0]) {
+            article.value = normalizeArticle(articleRes.data[0]);
+            // Преобразуем Markdown в HTML
+            if (article.value.body) {
+                parsedBody.value = md.render(article.value.body);
+            }
+            setupSeo();
+        } else {
+            error.value = 'Статья не найдена';
+        }
+    } catch (err) {
+        console.error('Ошибка при загрузке статьи:', err);
+        error.value = 'Ошибка загрузки статьи';
+    } finally {
+        index.loader = false;
+    }
+}
+
+
+
 // получаем мета данные
 const seo = ref({})
 
@@ -146,4 +252,11 @@ const { data } = await useAsyncData('seo', ()  =>
   });
 
 onMounted(() => fetch())
+
+onUnmounted(() => {
+    document.removeEventListener('click', handleDocumentClick);
+    if (observer) {
+        observer.disconnect();
+    }
+});
 </script>

@@ -1,83 +1,322 @@
 <template>
-  <div>
-    <!-- первый блок -->
+  <div class="py-6 dark:bg-neutral-700">
+    <!-- Блок 1: Приветственный баннер -->
+    <section
+      class="bg-gradient-to-r from-[#ff4b78] to-[#ff2056] text-white mx-auto w-full max-w-screen-xl lg:py-8 rounded-lg shadow-lg">
+      <div class="container mx-auto px-4 py-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-3xl md:text-4xl font-bold mb-4">Студия дизайна интерьера EvgeniaDesign</h1>
+          <p class="text-lg mb-8">Изучайте программирование, веб-разработку и IT-технологии с профессионалами</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <NuxtLink to="/blog"
+              class="bg-white text-rose-500 px-6 py-3 rounded-lg font-medium hover:bg-white/20 hover:text-white transition-colors shadow-md">
+              Читать блог
+            </NuxtLink>
+            <NuxtLink to="/about"
+              class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors">
+              О нас
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- блок с прайс-листом -->
+    <h1 class="text-center text-4xl font-bold p-6 dark:text-white">Услуги и Цены</h1>
+    <section class="flex justify-between mx-auto w-full max-w-screen-xl lg:py-8 dark:text-white">
+      <!-- карточка 1 -->
+      <div
+        class="w-full max-w-sm p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
+        <h5 class="mb-4 text-3xl font-medium h-20">Планировочное решение</h5>
+        <div class="flex items-baseline dark:text-white">
+          <span class="text-5xl font-bold tracking-tight">950 <span class="text-3xl font-semibold">₽/м²</span></span>
+        </div>
+        <ul role="list" class="space-y-5 my-7 h-75">
+          <li class="flex items-center">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">все размеры
+              мебели</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">размеры
+              оборудования</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">экспликация
+              помещения</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">расстояние у
+              проходов</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">обозначение
+              мелких предметов</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">направление
+              открывания дверей</span>
+          </li>
+        </ul>
+        <button type="button"
+          class="border-1 border-rose-500 dark:border-white dark:text-white hover:bg-rose-400 hover:text-white transition-colors shadow-md font-medium rounded-lg text-sm px-5 py-3 inline-flex justify-center w-full text-center">Получить
+          консультацию</button>
+      </div>
+      <!-- карточка 2 -->
+      <div
+        class="w-full max-w-sm p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
+        <h5 class="mb-4 text-3xl font-medium h-20">Полный дизайн-проект</h5>
+        <div class="flex items-baseline dark:text-white">
+          <span class="text-5xl font-bold tracking-tight">3000 <span class="text-3xl font-semibold">₽/м²</span></span>
+        </div>
+        <ul role="list" class="space-y-5 my-7 h-75">
+          <li class="flex items-center">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">планировочное
+              решение (2-3 варианта на выбор)</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span
+              class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">3D-визуализация</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">чертежная
+              документация (полный комплект)</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">ведомость всех
+              материалов</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">ведомость
+              мебели, оборудования и освещения</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">габаритные
+              чертежи заказных изделийй</span>
+          </li>
+        </ul>
+        <button type="button"
+          class="border-1 border-rose-500 dark:border-white dark:text-white hover:bg-rose-400 hover:text-white transition-colors shadow-md font-medium rounded-lg text-sm px-5 py-3 inline-flex justify-center w-full text-center">Получить
+          консультацию</button>
+      </div>
+      <!-- карточка 3 -->
+      <div
+        class="w-full max-w-sm p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
+        <h5 class="mb-4 text-3xl font-medium h-20">Авторский надзор</h5>
+        <div class="flex items-baseline dark:text-white">
+          <span class="text-5xl font-bold tracking-tight">30000 <span class="text-3xl font-semibold">/в
+              месяц</span></span>
+        </div>
+        <ul role="list" class="space-y-5 my-7 h-75">
+          <li class="flex items-center">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">посещение
+              объекта во время всех ключевых этапов ремонта</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">помощь в
+              подборке материалов</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">отслеживание
+              текущих работ на объекте</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">своевременная
+              корректировка и дополнения чертежей в случае непредвиденных ситуаций</span>
+          </li>
+          <li class="flex">
+            <svg class="shrink-0 w-4 h-4 text-rose-500 dark:text-rose-500" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="text-base font-normal leading-tight text-neutral-600 dark:text-neutral-400 ms-3">корректировка
+              чертежей после возведения и оштукатуривания стен</span>
+          </li>
+        </ul>
+        <button type="button"
+          class="border-1 border-rose-500 dark:border-white dark:text-white hover:bg-rose-400 hover:text-white transition-colors shadow-md font-medium rounded-lg text-sm px-5 py-3 inline-flex justify-center w-full text-center">Получить
+          консультацию</button>
+      </div>
+    </section>
+
+    <!-- Рекламный блок (новый) -->
+    <section class="mx-auto w-full max-w-screen-xl lg:py-8 rounded-lg dark:bg-neutral-600 dark:text-white">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="md:w-2/3">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">Дизайн - это не просто красивые картинки.
+            </h2>
+            <p class="text-xl text-neutral-600 dark:text-neutral-400 mb-4">Предоставляем полный спектр услуг по созданию
+              вашего идеального пространства</p>
+            <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>Дизайн-проект</span>
+            </div>
+            <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400 mt-2">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>Авторский надзор</span>
+            </div>
+            <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400 mt-2">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>Подготовка документации</span>
+            </div>
+          </div>
+          <div class="md:w-1/3 flex justify-center">
+            <NuxtLink to="/contact"
+              class="border-2 border-white bg-rose-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-rose-500/10 hover:border-rose-500 hover:text-rose-500 transition-colors shadow-md">
+              Заказать дизайн-проект
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- блок с вакансией -->
     <div class="relative isolate overflow-hidden dark:bg-neutral-700 py-24 sm:py-32">
-      <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply" alt="" class="absolute inset-0 brightness-90 opacity-60 -z-10 size-full object-cover object-right md:object-center">
-      <div class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl" aria-hidden="true">
-        <div class="aspect-1097/845 w-[68.5625rem] bg-linear-to-tr from-[#ff4b78] to-[#ff2056] opacity-40" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+      <!-- фон градиента -->
+      <div class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
+        aria-hidden="true">
+        <div class="aspect-1097/845 w-[68.5625rem] bg-linear-to-tr from-[#ff4b78] to-[#ff2056] opacity-40"
+          style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+        </div>
       </div>
-      <div class="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu" aria-hidden="true">
-        <div class="aspect-1097/845 w-[68.5625rem] bg-linear-to-tr from-[#ff4b78] to-[#ff2056] opacity-40" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+      <div
+        class="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu"
+        aria-hidden="true">
+        <div class="aspect-1097/845 w-[68.5625rem] bg-linear-to-tr from-[#ff4b78] to-[#ff2056] opacity-40"
+          style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+        </div>
       </div>
+      <!-- текст и описание -->
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2 class="text-5xl font-semibold tracking-tight text-white sm:text-7xl">Работа с нами</h2>
-          <p class="mt-8 text-lg font-medium text-pretty text-gray-300 sm:text-xl/8">Мы — команда увлеченных дизайнеров, архитекторов и энтузиастов, которые стремятся вдохновить вас на создание красивых и функциональных пространств. Наша цель — делиться знаниями, идеями и последними трендами в мире дизайна интерьера, чтобы помочь вам превратить ваш дом в уютное и стильное место.</p>
+          <h2 class="text-5xl font-semibold tracking-tight dark:text-white sm:text-7xl">Работа с нами</h2>
+          <p class="mt-8 text-lg font-medium text-pretty dark:text-gray-300 sm:text-xl/8">Мы — команда увлеченных
+            дизайнеров, архитекторов и энтузиастов, которые стремятся вдохновить вас на создание красивых и
+            функциональных пространств. Наша цель — делиться знаниями, идеями и последними трендами в мире дизайна
+            интерьера, чтобы помочь вам превратить ваш дом в уютное и стильное место.</p>
         </div>
         <div class="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
-          <div class="grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold text-white sm:grid-cols-2 md:flex lg:gap-x-10">
+          <div
+            class="grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold dark:text-white sm:grid-cols-2 md:flex lg:gap-x-10">
             <NuxtLink to="/contact">Открытые вакансии <span aria-hidden="true">&rarr;</span></NuxtLink>
             <NuxtLink to="/contact">Программа стажировок <span aria-hidden="true">&rarr;</span></NuxtLink>
             <NuxtLink to="/contact">Познакомьтесь с нашим руководством <span aria-hidden="true">&rarr;</span></NuxtLink>
           </div>
           <dl class="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
             <div class="flex flex-col-reverse gap-1">
-              <dt class="text-base/7 text-gray-300">Офисы по региону</dt>
-              <dd class="text-4xl font-semibold tracking-tight text-white">8</dd>
+              <dt class="text-base/7 dark:text-gray-300">Офисы по региону</dt>
+              <dd class="text-4xl font-semibold tracking-tight dark:text-white">8</dd>
             </div>
             <div class="flex flex-col-reverse gap-1">
-              <dt class="text-base/7 text-gray-300">Количество сотрудников</dt>
-              <dd class="text-4xl font-semibold tracking-tight text-white">100+</dd>
+              <dt class="text-base/7 dark:text-gray-300">Количество сотрудников</dt>
+              <dd class="text-4xl font-semibold tracking-tight dark:text-white">100+</dd>
             </div>
             <div class="flex flex-col-reverse gap-1">
-              <dt class="text-base/7 text-gray-300">Часов в неделю</dt>
-              <dd class="text-4xl font-semibold tracking-tight text-white">40</dd>
+              <dt class="text-base/7 dark:text-gray-300">Часов в неделю</dt>
+              <dd class="text-4xl font-semibold tracking-tight dark:text-white">40</dd>
             </div>
             <div class="flex flex-col-reverse gap-1">
-              <dt class="text-base/7 text-gray-300">Оплачиваемый отпуск</dt>
-              <dd class="text-4xl font-semibold tracking-tight text-white">2 раза в год</dd>
+              <dt class="text-base/7 dark:text-gray-300">Оплачиваемый отпуск</dt>
+              <dd class="text-4xl font-semibold tracking-tight dark:text-white">2 раза в год</dd>
             </div>
           </dl>
         </div>
-      </div>
-    </div>
-    <!-- блок с подпиской -->
-    <div class="relative isolate overflow-hidden dark:bg-neutral-700 py-16 sm:py-24 lg:py-32">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
-          <div class="max-w-xl lg:max-w-lg">
-            <h2 class="text-4xl font-semibold tracking-tight text-white">Подпишитесь на наши новости</h2>
-            <p class="mt-4 text-lg text-gray-300">Получайте уведомления о новых статьях и обновлениях.</p>
-            <div class="mt-6 flex max-w-md gap-x-4">
-              <label for="email-address" class="sr-only">Email address</label>
-              <input v-model="email" id="email-address" name="email" type="email" autocomplete="email" required class="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-500 sm:text-sm/6" placeholder="Введите свой email">
-              <button @click="fetchSubscribs" type="submit" class="flex-none rounded-md bg-rose-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-rose-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500">Отправить</button>
-            </div>
-          </div>
-          <dl class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
-            <div class="flex flex-col items-start">
-              <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                </svg>
-              </div>
-              <dt class="mt-4 text-base font-semibold text-white">Актуальные статьи</dt>
-              <dd class="mt-2 text-base/7 text-gray-400">Успей прочитать новые статьи о дизайне от разных специалистов.</dd>
-            </div>
-            <div class="flex flex-col items-start">
-              <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 3.712-1.538l1.732-1.732a5.25 5.25 0 0 0 1.538-3.712l.003-2.024a.668.668 0 0 1 .198-.471 1.575 1.575 0 1 0-2.228-2.228 3.818 3.818 0 0 0-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0 1 16.35 15m.002 0h-.002" />
-                </svg>
-              </div>
-              <dt class="mt-4 text-base font-semibold text-white">Без спама</dt>
-              <dd class="mt-2 text-base/7 text-gray-400">Мы делаем рассылку только о новых статья и обновлениях, чтобы вы всегда мы в курсе актуальных тем.</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-      <div class="absolute top-0 left-1/2 -z-10 -translate-x-1/2 blur-3xl xl:-top-6" aria-hidden="true">
-        <div class="aspect-1155/678 w-[72.1875rem] bg-linear-to-tr from-[#ff4b78] to-[#ff2056] opacity-30" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
       </div>
     </div>
 
@@ -85,13 +324,15 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import Index from './portfolio/index.vue';
 const email = ref('')
 
 const fetchSubscribs = async () => {
   try {
     const response = await $fetch('https://55ab4659a877.vps.myjino.ru/x/api/subscribers', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: {
         data: {
           email: email.value
@@ -99,7 +340,7 @@ const fetchSubscribs = async () => {
       }
     })
 
-    if(response.ok) {
+    if (response.ok) {
       console.log(response);
     }
   } catch (error) {

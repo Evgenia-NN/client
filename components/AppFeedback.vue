@@ -13,7 +13,7 @@
             <label for="message" class="block mb-2 text-xl font-medium dark:text-white">Ваше сообщение</label>
             <textarea  v-model="formMessage" id="message" rows="4" class="opacity-80 block p-2.5 w-full text-sm rounded-lg border border-white bg-rose-300 focus:ring-rose-500 focus:border-rose-500 dark:bg-white/40 dark:border-neutral-500 dark:placeholder-white dark:text-white dark:focus:ring-white dark:focus:border-white" placeholder="Оставьте сообщение..."></textarea>
         </div>
-        <button type="submit" class="rounded-md bg-rose-500 my-8 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-rose-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500 dark:border-white dark:border-1">Отправить</button>
+        <button type="submit" class="border-2 border-white bg-rose-500 text-white px-6 py-3 my-6 rounded-lg font-medium hover:bg-rose-500/10 hover:border-rose-500 hover:text-rose-500 transition-colors shadow-md">Отправить</button>
     </form>
 </template>
 

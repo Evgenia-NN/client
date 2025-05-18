@@ -3,7 +3,7 @@
     <div class="relative isolate overflow-hidden dark:bg-neutral-700">
         <h1 class="text-rose-500 text-center text-4xl font-bold p-4">Портфолио</h1>
             <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-40 py-8">
-                <article v-for="work in works" :key="work.id" class="flex flex-col p-5 max-w-sm bg-rose-50/50  border border-rose-500 rounded-lg shadow-sm">
+                <article v-for="work in works" :key="work.id" class="flex flex-col p-5 max-w-sm bg-rose-50/50 border border-rose-500 rounded-lg shadow-sm">
                     <NuxtLink :to="`/portfolio/${work.slug}`" >
                         <img class="h-40 w-full object-cover rounded-lg" :src="'https://55ab4659a877.vps.myjino.ru/x'+work.image.url" />
                     </NuxtLink>

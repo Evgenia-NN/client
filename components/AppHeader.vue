@@ -40,9 +40,7 @@
                 <!-- мобильное меню -->
                 <div :class="[
                     'w-full lg:flex lg:w-auto lg:order-1 transition-all duration-300 ease-in-out',
-                    menuOpen || searchOpen ? 'block' : 'hidden'
-                ]"
-                id="navbar-search">
+                    menuOpen || searchOpen ? 'block' : 'hidden']" id="navbar-search">
                     <!-- мобильный поиск -->
                     <div v-if="searchOpen" class="relative w-full mt-3 lg:hidden">
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
