@@ -77,6 +77,9 @@ const { id } = useRoute().params;
 
 const article = ref({})
 const index = useIndexStore();
+const isLoading = ref(false)
+const error = ref(null)
+const copied = ref(false)
 
 import markdownit from 'markdown-it'
 const md = markdownit()
@@ -88,16 +91,18 @@ watch(article, (newArticle) => {
 
 const fetch = async () => {
     try {
-        index.loader = true;
+        isLoading.value = true;
+        error.value = null;
         const res = await $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/works?filters[slug][$eqi]=${id}&populate=*`);
         article.value = res.data[0];
         if (article.value) {
             updateViews(article.value.documentId);
         }
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        error.value = err.message || 'Произошла ошибка при загрузке статьи';
+        console.log(err);
     } finally {
-        index.loader = false;
+        isLoading.value = false;
     }
 };
 
@@ -146,6 +151,15 @@ const { data } = await useAsyncData('seo', ()  =>
         { name: 'description', content: () => seo.value?.metaDescription || '' }
         ],
   });
+
+// Добавляем функцию для копирования URL
+const copyCurrentUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    copied.value = true;
+    setTimeout(() => {
+        copied.value = false;
+    }, 2000);
+};
 
 onMounted(() => fetch())
 </script>

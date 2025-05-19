@@ -25,7 +25,7 @@
             <!-- Хлебные крошки -->
             <UiBreadcrumbs 
                 :items="[
-                    { text: categoryName, to: `/${category}` },
+                    { text: categoryName.name, to: categoryName.slug },
                     { text: article?.title || 'Загрузка...' }
                 ]"
                 class="mb-4 my-6"
@@ -63,6 +63,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 // Преобразует дату в формате ISO в читаемый формат "день месяц год"
 function convertDatetime(isoDatetime) {
     // Создаем объект Date из строки
@@ -81,30 +83,39 @@ function convertDatetime(isoDatetime) {
 }
 
 const { id } = useRoute().params;
-const categoryName = ref('');
-const article = ref({})
+const categoryName = ref({});
+const article = ref({});
+const copied = ref(false);
+const error = ref(null);
+const isLoading = ref(false);
 const index = useIndexStore();
+const observer = ref(null);
+const body = ref(null);
 
 import markdownit from 'markdown-it'
 const md = markdownit()
-const body = ref()
+
 watch(article, (newArticle) => {
-    body.value = md.render(newArticle.body);
-    
-})
+    if (newArticle?.body) {
+        body.value = md.render(newArticle.body);
+    }
+});
 
 const fetch = async () => {
     try {
-        index.loader = true;
+        isLoading.value = true;
+        error.value = null;
         const res = await $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/articles?filters[slug][$eqi]=${id}&populate=*`);
         article.value = res.data[0];
         if (article.value) {
             updateViews(article.value.documentId);
         }
-    } catch (error) {
-        console.log(error);
+        categoryName.value = article.value.categories[0];
+    } catch (err) {
+        console.error('Ошибка при загрузке статьи:', err);
+        error.value = 'Ошибка загрузки статьи';
     } finally {
-        index.loader = false;
+        isLoading.value = false;
     }
 };
 
@@ -251,12 +262,15 @@ const { data } = await useAsyncData('seo', ()  =>
         ],
   });
 
-onMounted(() => fetch())
+onMounted(() => {
+    fetch();
+    document.addEventListener('click', handleDocumentClick);
+});
 
 onUnmounted(() => {
     document.removeEventListener('click', handleDocumentClick);
-    if (observer) {
-        observer.disconnect();
+    if (observer.value) {
+        observer.value.disconnect();
     }
 });
 </script>

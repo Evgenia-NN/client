@@ -6,7 +6,7 @@
       <div class="container mx-auto px-4 py-6">
         <div class="max-w-4xl mx-auto text-center">
           <h1 class="text-3xl md:text-4xl font-bold mb-4">Студия дизайна интерьера EvgeniaDesign</h1>
-          <p class="text-lg mb-8">Изучайте программирование, веб-разработку и IT-технологии с профессионалами</p>
+          <p class="text-lg mb-8">Создаем пространство, где стиль встречает комфорт!</p>
           <div class="flex flex-wrap justify-center gap-4">
             <NuxtLink to="/blog"
               class="bg-white text-rose-500 px-6 py-3 rounded-lg font-medium hover:bg-white/20 hover:text-white transition-colors shadow-md">
@@ -21,12 +21,40 @@
       </div>
     </section>
 
+    <!-- Блок 3: Последние посты блога -->
+    <!-- <section class="mx-auto w-full max-w-screen-xl py-6 lg:py-8  dark:text-white">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-cyan-700 dark:text-cyan-500">Последние публикации</h2>
+          <NuxtLink to="/blog" class="text-cyan-600 hover:text-cyan-800 dark:text-cyan-400 dark:hover:text-cyan-300 font-medium">
+            Посмотреть все
+          </NuxtLink>
+        </div>
+        
+        <div v-if="isLoading" class="grid place-items-center py-10">
+          <div class="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+        
+        <div v-else-if="latestPosts.length === 0" class="text-center py-10">
+          <p class="text-gray-500 dark:text-gray-400">Записи не найдены</p>
+        </div>
+        
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <UiArticle 
+            v-for="article in latestPosts" 
+            :key="article.id" 
+            :article="article" 
+          />
+        </div>
+      </div>
+    </section> -->
+
     <!-- блок с прайс-листом -->
     <h1 class="text-center text-4xl font-bold p-6 dark:text-white">Услуги и Цены</h1>
-    <section class="flex justify-between mx-auto w-full max-w-screen-xl lg:py-8 dark:text-white">
+    <section class="flex flex-col md:flex-row justify-between mx-auto w-full max-w-screen-xl lg:py-8 dark:text-white gap-6 px-4">
       <!-- карточка 1 -->
       <div
-        class="w-full max-w-sm p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
+        class="w-full md:w-1/3 p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
         <h5 class="mb-4 text-3xl font-medium h-20">Планировочное решение</h5>
         <div class="flex items-baseline dark:text-white">
           <span class="text-5xl font-bold tracking-tight">950 <span class="text-3xl font-semibold">₽/м²</span></span>
@@ -93,7 +121,7 @@
       </div>
       <!-- карточка 2 -->
       <div
-        class="w-full max-w-sm p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
+        class="w-full md:w-1/3 p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
         <h5 class="mb-4 text-3xl font-medium h-20">Полный дизайн-проект</h5>
         <div class="flex items-baseline dark:text-white">
           <span class="text-5xl font-bold tracking-tight">3000 <span class="text-3xl font-semibold">₽/м²</span></span>
@@ -160,7 +188,7 @@
       </div>
       <!-- карточка 3 -->
       <div
-        class="w-full max-w-sm p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
+        class="w-full md:w-1/3 p-4 bg-white border border-rose-500 rounded-lg sm:p-8 shadow-lg dark:bg-neutral-600 dark:border-neutral-600">
         <h5 class="mb-4 text-3xl font-medium h-20">Авторский надзор</h5>
         <div class="flex items-baseline dark:text-white">
           <span class="text-5xl font-bold tracking-tight">30000 <span class="text-3xl font-semibold">/в
@@ -327,6 +355,47 @@
 import { ref, onMounted } from 'vue';
 import Index from './portfolio/index.vue';
 const email = ref('')
+
+// Убираем демо-данные и инициализируем пустой массив
+const latestPosts = ref([])
+const isLoading = ref(false)
+
+ // Загрузка данных с API
+  try {
+    isLoading.value = true;
+    const { data } = await useAsyncData('latestPosts', () => 
+      $fetch('https://55ab4659a877.vps.myjino.ru/x/api/articles?populate=*')
+    );
+    
+    if (data.value && data.value.data) {
+      latestPosts.value = data.value.data.map(article => {
+        // Базовая нормализация данных
+        const normalizedPost = { 
+          id: article.id,
+          ...article.attributes
+        };
+        
+        // Проверка и нормализация обложки
+        if (article.attributes?.cover?.data?.attributes?.url) {
+          const coverUrl = article.attributes.cover.data.attributes.url;
+          normalizedPost.cover = { 
+            url: coverUrl.startsWith('/') 
+              ? `https://55ab4659a877.vps.myjino.ru/x${coverUrl}` 
+              : coverUrl 
+          };
+        } else {
+          normalizedPost.cover = { url: '/cover.webp' };
+        }
+        
+        return normalizedPost;
+      });
+    }
+  } catch (error) {
+    console.error('Ошибка при загрузке последних постов:', error);
+  } finally {
+    isLoading.value = false;
+  }
+
 
 const fetchSubscribs = async () => {
   try {

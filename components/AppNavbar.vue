@@ -86,7 +86,7 @@
                     :class="{'right-0 left-auto': isNearRightEdge}">
     
                     <ul class="p-1 text-sm text-black dark:text-white">
-                        <li v-for="category in nav.categories" :key="category.id" class="relative group/sub">
+                        <li v-for="category in nav.categories" :key="category.id" class="relative group-sub">
                             <div class="flex items-center justify-between w-full hover:bg-gray-100 dark:hover:bg-neutral-600 rounded transition-all duration-300">
                                 <NuxtLink :to="'/'+category.slug" 
                                     class="flex-1 px-4 py-3 transition-all duration-300"
@@ -195,7 +195,7 @@
     onMounted(() => {
         fetchNavbar()
         window.addEventListener('resize', () => {
-            const elements = document.querySelectorAll('.group/sub')
+            const elements = document.querySelectorAll('.group-sub')
             elements.forEach(element => checkPosition(element))
         })
         document.addEventListener('click', handleClickOutside)

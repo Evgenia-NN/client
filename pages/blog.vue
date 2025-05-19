@@ -33,39 +33,33 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-// import { useIndexStore } from '@/stores/indexStore'; // Убедитесь, что путь к вашему store правильный
 
 const index = useIndexStore();
 const articles = ref([]);
+const error = ref(null);
 
 // Функция для получения списка всех статей
 async function fetchArticles() {
     try {
-        // Включаем loader
         index.loader = true;
-
-        const response = await fetch('https://55ab4659a877.vps.myjino.ru/x/api/articles?populate=*');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const res = await response.json();
+        error.value = null;
         
-        articles.value = res.data; // Сохраняем полученные статьи
-    } catch (error) {
-        console.error('Ошибка при получении статей:', error);
+        const res = await $fetch('https://55ab4659a877.vps.myjino.ru/x/api/articles?populate=*');
+        articles.value = res.data;
+    } catch (err) {
+        console.error('Ошибка при получении статей:', err);
+        error.value = 'Ошибка загрузки статей';
     } finally {
-        // Выключаем loader
         index.loader = false;
     }
 }
 
 async function loadArticles() {
-    await fetchArticles(); // Загружаем статьи при инициализации
-    console.log(articles.value);
+    await fetchArticles();
 }
 
 onMounted(() => {
-    loadArticles(); // Вызываем загрузку статей при монтировании
+    loadArticles();
 });
 
 const formatDate = (date) => {
@@ -75,23 +69,26 @@ const formatDate = (date) => {
     return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-
 // получаем мета данные
-const seo = ref({})
+const seo = ref({});
 
-const { data } = await useAsyncData('seo', ()  =>
-  $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/blog?populate=*`),
-  { server: true }
-  );
+try {
+    const { data } = await useAsyncData('seo', () =>
+        $fetch(`https://55ab4659a877.vps.myjino.ru/x/api/blog?populate=*`),
+        { server: true }
+    );
 
-  if (data.value?.data?.seo) {
-      seo.value = data.value.data.seo;
-  }
+    if (data.value?.data?.seo) {
+        seo.value = data.value.data.seo;
+    }
+} catch (err) {
+    console.error('Ошибка при загрузке SEO данных:', err);
+}
 
-  useHead({
-        title: () => seo.value?.metaTitle ? `${seo.value?.metaTitle} | EvgeniaDesign` : 'EvgeniaDesign',
-        meta: [
+useHead({
+    title: () => seo.value?.metaTitle ? `${seo.value?.metaTitle} | EvgeniaDesign` : 'EvgeniaDesign',
+    meta: [
         { name: 'description', content: () => seo.value?.metaDescription || '' }
-        ],
-  });
+    ],
+});
 </script>
