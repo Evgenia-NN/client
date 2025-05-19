@@ -58,7 +58,7 @@
             <div class="md:flex md:justify-between">
                 <div class="mb-8 md:mb-0">
                     <NuxtLink to="/" class="flex items-center">
-                        <img src="file:///C:/Users/Ivan/Downloads/Лого%20розовый.svg" class="h-10 mr-4" alt="EvgeniaDesign Logo" />
+                        <img src="/logo.svg" class="h-10 mr-4" alt="EvgeniaDesign Logo" />
                         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                             EvgeniaDesign
                         </span>

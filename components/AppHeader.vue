@@ -6,7 +6,7 @@
 
                 <!-- логотип -->
                 <NuxtLink to="/" class="flex items-center space-x-2 rtl:space-x-reverse">
-                    <img src="file:///C:/Users/Ivan/Downloads/Лого%20розовый.svg" class="h-7" alt="EvgeniaDesign Logo" />
+                    <img src="/logo.svg" class="h-7" alt="EvgeniaDesign Logo" />
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">EvgeniaDesign</span>
                 </NuxtLink>
 

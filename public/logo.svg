@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 331.64 328.64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c0536b;
+        font-family: AromeDisplay, 'Arome Display';
+        font-size: 242.19px;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #c0536b;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(46.48 251.23)"><tspan x="0" y="0">E</tspan></text>
+  <circle class="cls-2" cx="164.32" cy="164.32" r="162.82"/>
+  <text class="cls-1" transform="translate(186.8 251.23)"><tspan x="0" y="0">D</tspan></text>
+</svg>
