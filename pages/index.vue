@@ -2,18 +2,18 @@
   <div class="py-6 dark:bg-neutral-700">
     <!-- Блок 1: Приветственный баннер -->
     <section
-      class="bg-gradient-to-r from-[#ff4b78] to-[#ff2056] text-white mx-auto w-full max-w-screen-xl lg:py-8 rounded-lg shadow-lg">
-      <div class="container mx-auto px-4 py-6">
+      class=" text-white mx-auto w-full max-w-screen-xl px-4 lg:py-8">
+      <div class="container mx-auto px-4 py-6 sm:py-8 md:py-12 bg-gradient-to-r from-[#ff4b78] to-[#ff2056] rounded-lg shadow-lg">
         <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-3xl md:text-4xl font-bold mb-4">Студия дизайна интерьера EvgeniaDesign</h1>
-          <p class="text-lg mb-8">Создаем пространство, где стиль встречает комфорт!</p>
-          <div class="flex flex-wrap justify-center gap-4">
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Студия дизайна интерьера EvgeniaDesign</h1>
+          <p class="text-base sm:text-lg mb-6 sm:mb-8 text-white/90">Создаем пространство, где стиль встречает комфорт!</p>
+          <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <NuxtLink to="/blog"
-              class="bg-white text-rose-500 px-6 py-3 rounded-lg font-medium hover:bg-white/20 hover:text-white transition-colors shadow-md">
+              class="bg-white text-rose-500 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-white/20 hover:text-white transition-colors shadow-md text-sm sm:text-base">
               Читать блог
             </NuxtLink>
             <NuxtLink to="/about"
-              class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors">
+              class="bg-transparent border-2 border-white text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-white/20 transition-colors text-sm sm:text-base">
               О нас
             </NuxtLink>
           </div>
@@ -21,36 +21,54 @@
       </div>
     </section>
 
-    <!-- Блок 3: Последние посты блога -->
-    <!-- <section class="mx-auto w-full max-w-screen-xl py-6 lg:py-8  dark:text-white">
-      <div class="container mx-auto px-4">
+    <!-- Блок с работами -->
+    <section class="mx-auto w-full max-w-screen-xl px-4 lg:py-8 dark:text-white">
+      <div class="container mx-auto">
         <div class="flex justify-between items-center mb-6">
-          <h2 class="text-2xl font-bold text-cyan-700 dark:text-cyan-500">Последние публикации</h2>
-          <NuxtLink to="/blog" class="text-cyan-600 hover:text-cyan-800 dark:text-cyan-400 dark:hover:text-cyan-300 font-medium">
-            Посмотреть все
+          <h1 class="text-3xl font-bold sm:text-4xl text-center dark:text-white">Наши работы</h1>
+          <NuxtLink to="/portfolio" class="flex items-center gap-2 dark:text-white hover:text-rose-600 text-sm sm:text-base">
+            Смотреть все
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+            </svg>
           </NuxtLink>
         </div>
         
         <div v-if="isLoading" class="grid place-items-center py-10">
-          <div class="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+          <div class="w-10 h-10 border-4 border-rose-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
         
-        <div v-else-if="latestPosts.length === 0" class="text-center py-10">
-          <p class="text-gray-500 dark:text-gray-400">Записи не найдены</p>
+        <div v-else-if="works.length === 0" class="text-center py-10">
+          <p class="text-gray-500 dark:text-gray-400">Работы не найдены</p>
         </div>
         
-        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <UiArticle 
-            v-for="article in latestPosts" 
-            :key="article.id" 
-            :article="article" 
-          />
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <article v-for="work in works.slice(0, 4)" :key="work.id" class="flex flex-col p-4 sm:p-5 max-w-sm bg-rose-50/50 border border-rose-500 rounded-lg shadow-sm text-black">
+            <NuxtLink :to="`/portfolio/${work.slug}`">
+              <img class="h-32 sm:h-40 w-full object-cover rounded-lg" :src="'https://55ab4659a877.vps.myjino.ru/x'+work.image.url" />
+            </NuxtLink>
+            <div class="inline-flex flex-col gap-2 sm:gap-3 p-2">
+              <NuxtLink :to="`/portfolio/${work.slug}`">
+                <h5 class="min-h-16 sm:min-h-24 text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-gray-900 line-clamp-3 overflow-hidden text-ellipsis whitespace-normal">{{ work.name }}</h5>
+              </NuxtLink>
+              <NuxtLink :to="`/portfolio/${work.slug}`" class="flex items-center text-sm sm:text-base text-neutral-800">
+                <p>Подробнее</p>
+                <svg class="rtl:rotate-180 w-3 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+              </NuxtLink>
+              <div class="mt-2 sm:mt-4 flex items-center justify-between">
+                <span class="text-xs sm:text-sm text-neutral-800">{{ formatDate(work.publishedAt) }}</span>
+                <div class="flex space-x-2"></div>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
-    </section> -->
+    </section>
 
     <!-- блок с прайс-листом -->
-    <h1 class="text-center text-4xl font-bold p-6 dark:text-white">Услуги и Цены</h1>
+    <h1 class="text-3xl font-bold sm:text-4xl text-center p-6 dark:text-white">Услуги и Цены</h1>
     <section class="flex flex-col md:flex-row justify-between mx-auto w-full max-w-screen-xl lg:py-8 dark:text-white gap-6 px-4">
       <!-- карточка 1 -->
       <div
@@ -248,45 +266,36 @@
     </section>
 
     <!-- Рекламный блок (новый) -->
-    <section class="mx-auto w-full max-w-screen-xl lg:py-8 rounded-lg dark:bg-neutral-600 dark:text-white">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="md:w-2/3">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">Дизайн - это не просто красивые картинки.
-            </h2>
-            <p class="text-xl text-neutral-600 dark:text-neutral-400 mb-4">Предоставляем полный спектр услуг по созданию
-              вашего идеального пространства</p>
-            <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400">
-              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span>Дизайн-проект</span>
-            </div>
-            <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400 mt-2">
-              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span>Авторский надзор</span>
-            </div>
-            <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400 mt-2">
-              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span>Подготовка документации</span>
+    <section class="mx-auto w-full max-w-screen-xl px-4 lg:py-8 dark:text-white">
+      <div class="container mx-auto p-6 sm:py-8 bg-neutral-200 rounded-lg dark:bg-neutral-600">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+          <div class="w-full md:w-2/3">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-3">Дизайн - это не просто красивые картинки.</h2>
+            <p class="text-base sm:text-xl text-neutral-600 dark:text-neutral-400 mb-4">Предоставляем полный спектр услуг по созданию вашего идеального пространства</p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-sm sm:text-base">Дизайн-проект</span>
+              </div>
+              <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-sm sm:text-base">Авторский надзор</span>
+              </div>
+              <div class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-sm sm:text-base">Подготовка документации</span>
+              </div>
             </div>
           </div>
-          <div class="md:w-1/3 flex justify-center">
+          <div class="w-full md:w-1/3 flex justify-end mt-6 md:mt-0">
             <NuxtLink to="/contact"
-              class="border-2 border-white bg-rose-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-rose-500/10 hover:border-rose-500 hover:text-rose-500 transition-colors shadow-md">
+              class="w-full sm:w-auto border-2 border-white bg-rose-500 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-rose-500/10 hover:border-rose-500 hover:text-rose-500 transition-colors shadow-md text-sm sm:text-base">
               Заказать дизайн-проект
             </NuxtLink>
           </div>
@@ -355,47 +364,39 @@
 import { ref, onMounted } from 'vue';
 import Index from './portfolio/index.vue';
 const email = ref('')
+const works = ref([])
 
 // Убираем демо-данные и инициализируем пустой массив
 const latestPosts = ref([])
 const isLoading = ref(false)
 
- // Загрузка данных с API
-  try {
-    isLoading.value = true;
-    const { data } = await useAsyncData('latestPosts', () => 
-      $fetch('https://55ab4659a877.vps.myjino.ru/x/api/articles?populate=*')
-    );
-    
-    if (data.value && data.value.data) {
-      latestPosts.value = data.value.data.map(article => {
-        // Базовая нормализация данных
-        const normalizedPost = { 
-          id: article.id,
-          ...article.attributes
-        };
-        
-        // Проверка и нормализация обложки
-        if (article.attributes?.cover?.data?.attributes?.url) {
-          const coverUrl = article.attributes.cover.data.attributes.url;
-          normalizedPost.cover = { 
-            url: coverUrl.startsWith('/') 
-              ? `https://55ab4659a877.vps.myjino.ru/x${coverUrl}` 
-              : coverUrl 
-          };
-        } else {
-          normalizedPost.cover = { url: '/cover.webp' };
+// Функция для получения списка работ
+async function fetchWorks() {
+    try {
+        isLoading.value = true;
+        const response = await fetch('https://55ab4659a877.vps.myjino.ru/x/api/works?populate=*');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-        
-        return normalizedPost;
-      });
+        const res = await response.json();
+        works.value = res.data;
+    } catch (error) {
+        console.error('Ошибка при получении работ:', error);
+    } finally {
+        isLoading.value = false;
     }
-  } catch (error) {
-    console.error('Ошибка при загрузке последних постов:', error);
-  } finally {
-    isLoading.value = false;
-  }
+}
 
+const formatDate = (date) => {
+    if (!date) return '';
+    const d = new Date(date);
+    const months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+onMounted(() => {
+    fetchWorks();
+});
 
 const fetchSubscribs = async () => {
   try {

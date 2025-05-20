@@ -1,23 +1,23 @@
 <template>
     <div class="relative isolate overflow-hidden dark:bg-neutral-700">
-        <h1 class="text-rose-500 text-center text-4xl font-bold p-4">Блог</h1>
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-40 py-8">
-            <article v-for="article in articles" :key="article.id" class="flex flex-col p-5 max-w-sm bg-rose-50/50 border border-rose-500 rounded-lg shadow-sm">
+        <h1 class="text-rose-500 text-center text-2xl sm:text-3xl md:text-4xl font-bold p-4">Блог</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-40 py-4 sm:py-6 md:py-8">
+            <article v-for="article in articles" :key="article.id" class="flex flex-col p-4 sm:p-5 max-w-sm bg-rose-50/50 border border-rose-500 rounded-lg shadow-sm">
                 <NuxtLink :to="`/${article.categories[0]?.slug}/${article.slug}`">
-                    <img class="h-40 w-full object-cover rounded-lg" :src="'https://55ab4659a877.vps.myjino.ru/x' + article.image.url" />
+                    <img class="h-32 sm:h-40 w-full object-cover rounded-lg" :src="'https://55ab4659a877.vps.myjino.ru/x' + article.image.url" />
                 </NuxtLink>
-                <div class="inline-flex flex-col gap-3 p-2">
+                <div class="inline-flex flex-col gap-2 sm:gap-3 p-2">
                     <NuxtLink :to="`/${article.categories[0]?.slug}/${article.slug}`">
-                        <h5 class="min-h-24 text-2xl font-bold tracking-tight text-gray-900 line-clamp-3 overflow-hidden text-ellipsis whitespace-normal">{{ article.title }}</h5>
+                        <h5 class="min-h-16 sm:min-h-24 text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-gray-900 line-clamp-3 overflow-hidden text-ellipsis whitespace-normal">{{ article.title }}</h5>
                     </NuxtLink>
-                    <NuxtLink :to="`/${article.categories[0]?.slug}/${article.slug}`">
+                    <NuxtLink :to="`/${article.categories[0]?.slug}/${article.slug}`" class="flex items-center text-sm sm:text-base">
                         <p>Подробнее</p>
                         <svg class="rtl:rotate-180 w-3 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                         </svg>
                     </NuxtLink>
-                    <div class="mt-4 flex items-center justify-between">
-                        <span class="text-sm text-gray-900 dark:text-gray-900">{{ formatDate(article.publishedAt) }}</span>
+                    <div class="mt-2 sm:mt-4 flex items-center justify-between">
+                        <span class="text-xs sm:text-sm text-gray-900 dark:text-gray-900">{{ formatDate(article.publishedAt) }}</span>
                         <div class="flex space-x-2"></div>
                     </div>
                 </div>

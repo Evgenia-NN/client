@@ -97,7 +97,7 @@ const md = markdownit()
 
 watch(article, (newArticle) => {
     if (newArticle?.body) {
-        body.value = md.render(newArticle.body);
+    body.value = md.render(newArticle.body);
     }
 });
 
